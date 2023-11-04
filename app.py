@@ -8,7 +8,9 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 
 from application.views import backend_blueprint
+
 app.register_blueprint(backend_blueprint)
+
 
 @app.errorhandler(400)
 def bad_request(error):
@@ -33,6 +35,7 @@ def internal_error(error):
 @app.errorhandler(503)
 def service_unavailable(error):
     return render_template("errors/503.html"), 503
+
 
 if __name__ == '__main__':
     app.run()
