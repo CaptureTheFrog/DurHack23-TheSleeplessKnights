@@ -2,3 +2,4 @@
 models/
 keys.py
 .idea
+/.env
