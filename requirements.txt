@@ -2,3 +2,4 @@ Flask
 flask-wtf
 wtforms
 python-dotenv
+requests
