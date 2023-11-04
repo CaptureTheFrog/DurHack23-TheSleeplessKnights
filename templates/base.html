@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Silly Song</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+</head>
+
+<body>
+
+<style>
+    .table {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<section class="hero is-primary is-fullheight">
+
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a href="{{ url_for('backend.main') }}" class="navbar-item">
+                            Home
+                        </a>
+                        <a href="{{ url_for('backend.about') }}" class="navbar-item">
+                            About
+                        </a>
+
+                        <a href="{{ url_for('backend.contact') }}" class="navbar-item" >
+                            Contact
+                        </a>
+
+                        <a href="{{ url_for('backend.readme') }}" class="navbar-item">
+                            README
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</section>
+</body>
+
+</html>
