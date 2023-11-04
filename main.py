@@ -1,4 +1,4 @@
 from AI.LLM import LLM
-model = LLM()
-model.set_lyrics("These are song lyrics")
+#model = LLM()
+model = LLM("My name is jeff, i am a gangsta")
 print(model.generate())
