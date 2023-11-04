@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import os
 from dotenv import load_dotenv
+import socket
 
 load_dotenv()
 
@@ -38,4 +39,7 @@ def service_unavailable(error):
 
 
 if __name__ == '__main__':
-    app.run()
+    if socket.gethostname() == "medium-chungus":
+       app.run(ssl_context=('/etc/letsencrypt/live/eloquentlyruinedlyrics.co/fullchain.pem', '/etc/letsencrypt/live/eloquentlyruinedlyrics.co/privkey.pem'), host="0.0.0.0", port=443)
+    else:
+       app.run()
