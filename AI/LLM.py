@@ -1,14 +1,29 @@
-from llama_cpp import Llama
-PROMPT = "Rewrite the lyrics to the following song in the most verboose and convoluted way imaginable. You must always refer in the first person as if you are the song. The lyrics must be in the language the song was originally written in. You must rewrite the entire song"
+#from llama_cpp import Llama
+#
+#class LLM:
+#	def __init__(self):
+#		self.__model = Llama("models/llama-2-7b.Q2_K.gguf", n_ctx=2**15, top_p=0.001)
+#
+#	def set_lyrics(self, lyrics):
+#		self.__lyrics = lyrics
+#
+#	def generate(self):
+#		if self.__lyrics is None:
+#			raise ValueError("Can not produce output without lyrics")
+#		if self.__model is not None:
+#			response = self.__model(f"Make this song goofy/n{self.__lyrics}")
+#			return response["choices"][0]["text"]
+
+import openai
 
 class LLM:
-	def __init__(self):
-		self.__model = Llama("models/llama-2-7b.Q2_K.gguf", n_ctx=4096, last_n_tokens_size=4096)
+    def __init__(self, lyrics: str):
+        self.__lyrics = lyrics
+        openai.api_key = "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"
 
-	def set_lyrics(self, lyrics):
-		self.__lyrics = lyrics
-
-	def generate(self):
-		if self.__model is not None:
-			response = self.__model(f"{PROMPT}: {self.__lyrics}")
-			return response["choices"][0]["text"]
+    def generate(self):
+        response = openai.Completion.create(
+            model="gpt-3.5-turbo-instruct",
+            prompt=f"Compose a humorous first-person narrative as if you are the lyrics of {self.__lyrics}, providing a whimsical tale of the song's content, including a comical exploration of its verses, pre-chorus, chorus, and any humorous elements within the lyrics.", max_tokens = 512
+            )
+        return response["choices"][0]["text"]
