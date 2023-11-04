@@ -1,8 +1,8 @@
+import urllib.parse
+import xml.etree.ElementTree as ET
 from typing import Optional
 
 import requests
-import urllib.parse
-import xml.etree.ElementTree as ET
 
 
 def get_lyrics(artist: str, song: str) -> Optional[str]:
@@ -29,4 +29,3 @@ def get_lyrics(artist: str, song: str) -> Optional[str]:
                 if n.tag.endswith("}Lyric"):
                     return n.text
     return None
-
