@@ -1,5 +1,5 @@
 from utils.LLM import LLM
+from utils.image_gen import gen_image
 
 # model = LLM()
-model = LLM("My name is jeff, i am a gangsta")
-print(model.generate())
+gen_image("Cats")

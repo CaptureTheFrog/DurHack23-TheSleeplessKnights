@@ -1,36 +1,26 @@
-import base64
-
+import openai
 import requests
 
 from keys import openaikey
 
 
 def gen_image(prompt):
-    url = ("https://api.getimg.ai/v1/stable-diffusion/text-to-image")
+    openai.api_key = openaikey
 
-    headers = {
-        "accept": "application/json",
-        "content-type": "application/json",
-        "Authorization": f"Bearer {openaikey}"
-    }
+    generated_data = openai.Image.create(
+        prompt=f"{prompt}",
+        n=1,
+        size="1024x1024",
+        response_format="url",
+    )
 
-    generation_data = {
-        "prompt": f"{prompt}",
-        "output_format": "jpeg",
-        "width": 1024,
-        "height": 1024
-    }
+    print(generated_data["data"][0]["url"])
 
-    response = requests.post(url, headers=headers, json=generation_data)
+    filename = "static/images/" + prompt[:16] + ".jpg"
 
-    print(response.text)
-
-    generated_data = response.json()
-
-    generated_image_data = base64.b64decode(generated_data['image'])
-
-    with open('art/generated_image.jpeg', 'wb') as f:
-        f.write(generated_image_data)
+    generated_image_data = requests.get(generated_data["data"][0]["url"]).content
+    with open(filename, 'wb') as handler:
+        handler.write(generated_image_data)
 
 
 def art_for_song(song_title):
