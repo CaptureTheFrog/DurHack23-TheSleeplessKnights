@@ -31,8 +31,3 @@ def contact():
 @backend_blueprint.route('/readme')
 def readme():
     return render_template('navbar/readme.html')
-
-
-# @backend_blueprint.route('/view_lyrics')
-# def view_lyrics():
-#     return render_template('main/view_lyrics.html')
