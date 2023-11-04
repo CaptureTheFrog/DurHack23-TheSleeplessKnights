@@ -22,7 +22,8 @@ class LLM:
         openai.api_key = "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"
 
     def generate(self):
-        response = openai.Completion.create(model="gpt-3.5-turbo-instruct",
-            prompt=f"Create a goofy remix of these lyrics: {self.__lyrics}", max_tokens=512)
+        response = openai.Completion.create(
+            model="gpt-3.5-turbo-instruct",
+            prompt=f"Compose a humorous first-person narrative as if you are the lyrics of {self.__lyrics}, providing a whimsical tale of the song's content, including a comical exploration of its verses, pre-chorus, chorus, and any humorous elements within the lyrics.", max_tokens = 512
+            )
         return response["choices"][0]["text"]
-
