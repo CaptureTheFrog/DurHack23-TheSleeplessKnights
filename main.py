@@ -1,11 +1,4 @@
-# load the large language model file
-from llama_cpp import Llama
-LLM = Llama("models/llama-2-7b.Q2_K.gguf")
-
-# create a text prompt
-prompt = "Say Hello World"
-# generate a response (takes several seconds)
-output = LLM(prompt)
-
-# display the response
-print(output["choices"][0]["text"])
+from AI.LLM import LLM
+model = LLM()
+model.set_lyrics("how does one calculate the diameter of a donut") # Test prompt to make sure the LLM can understand prompts
+print(model.generate())
