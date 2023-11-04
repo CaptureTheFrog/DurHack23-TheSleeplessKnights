@@ -8,6 +8,8 @@ import xml.etree.ElementTree as ET
 def get_lyrics(artist: str, song: str) -> Optional[str]:
     r = requests.get(
         f"http://api.chartlyrics.com/apiv1.asmx/SearchLyric?artist={urllib.parse.quote_plus(artist)}&song={urllib.parse.quote_plus(song)}")
+    if not r.ok:
+        return None
     root = ET.fromstring(r.text)
 
     # Iterate through each "SearchLyricResult" element
