@@ -2,7 +2,7 @@ import base64
 
 import requests
 
-from keys import img_key
+from keys import openaikey
 
 
 def gen_image(prompt):
@@ -11,7 +11,7 @@ def gen_image(prompt):
     headers = {
         "accept": "application/json",
         "content-type": "application/json",
-        "Authorization": f"Bearer {img_key}"
+        "Authorization": f"Bearer {openaikey}"
     }
 
     generation_data = {
