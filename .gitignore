@@ -164,3 +164,4 @@ models/
 keys.py
 .idea
 /.env
+**/*.jpg
