@@ -20,7 +20,7 @@ def main():
             new_lyrics = LLM(lyrics).generate()
             art_for_song(form.title.data)
 
-        path = "../../static/images/" + form.title.data + ".jpg"
+        path = "/static/images/" + form.title.data + ".jpg"
         return render_template('main/view_lyrics.html', title=form.title.data, path=path, lyrics=new_lyrics)
 
     return render_template('main/index.html', form=form)
