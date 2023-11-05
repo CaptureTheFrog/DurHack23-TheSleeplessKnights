@@ -1,11 +1,18 @@
-from flask import Blueprint, render_template, flash
+from flask import Blueprint, render_template, flash, send_file
 from application.forms import PostForm
 from application.lyrics_custom_api import Scraper
 from utils.LLM import LLM
 from utils.image_gen import art_for_song
+from utils.tts_gen import text_to_speech, play_audio
+import os
+
 
 backend_blueprint = Blueprint('backend', __name__, template_folder='templates')
 
+
+@backend_blueprint.route('/<filename>')
+def serve_audio(filename):
+    return send_file(filename)
 
 @backend_blueprint.route('/', methods=['GET', 'POST'])
 def main():
@@ -19,7 +26,7 @@ def main():
         else:
             new_lyrics = LLM(lyrics).generate()
             art_for_song(form.title.data)
-
+            speech_file = text_to_speech(new_lyrics)
         path = "/static/images/" + form.title.data + ".jpg"
         return render_template('main/view_lyrics.html', title=form.title.data, path=path, lyrics=new_lyrics)
 
@@ -39,3 +46,11 @@ def contact():
 @backend_blueprint.route('/readme')
 def readme():
     return render_template('navbar/readme.html')
+
+
+
+@backend_blueprint.route('/button_clicked', methods=['GET', 'POST'])
+def button_clicked():
+    # Perform some action when the button is clicked
+    print("Button was clicked!")
+    play_audio('speech.mp3')
