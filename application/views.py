@@ -4,6 +4,7 @@ from application.lyrics_custom_api import Scraper
 from utils.LLM import LLM
 from utils.image_gen import art_for_song
 from utils.tts_gen import text_to_speech, play_audio
+from utils.lyric_fetcher import get_lyrics
 import os
 
 
@@ -19,8 +20,8 @@ def main():
     form = PostForm()
     if form.validate_on_submit():
         scraper = Scraper(form.title.data, form.artist.data)
-        lyrics = scraper.lyrics
-        if lyrics == "":
+        lyrics = scraper.lyrics or get_lyrics(form.artist.data, form.title.data)
+        if not lyrics:
             flash('Lyrics not found.')
             return render_template('main/index.html', form=form)
         else:
