@@ -6,4 +6,3 @@ requests~=2.31.0
 openai~=0.28.1
 gtts
 playsound==1.2.2
-```
