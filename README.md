@@ -11,11 +11,23 @@ them using ChatGPT and produces a new album cover.
 
 1. Clone the repository
 2. Install the dependencies using `pip install -r requirements.txt`
-3. Run the app using `python app.py`
-4. Go to `localhost:5000` in your browser
-5. Enter the name of the artist and the song you want to change
-6. Click the button and wait for the results
-7. Enjoy!
+3. Create a file called `keys.py` and add the following code:
+
+```python
+openaikey = "API_KEY_HERE"
+```
+
+4. Create a file called `.env` and add the following code:
+
+```dotenv
+SECRET_KEY = SECRET_KEY_HERE
+```
+
+5. Run the app using `python app.py`
+6. Go to `localhost:5000` in your browser
+7. Enter the name of the artist and the song you want to change
+8. Click the button and wait for the results
+9. Enjoy!
 
 ## Example - "One" by U2
 
