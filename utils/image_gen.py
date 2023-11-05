@@ -14,8 +14,6 @@ def gen_image(prompt, song_title):
         response_format="url",
     )
 
-    print(generated_data["data"][0]["url"])
-
     filename = "static/images/" + song_title + ".jpg"
 
     generated_image_data = requests.get(generated_data["data"][0]["url"]).content

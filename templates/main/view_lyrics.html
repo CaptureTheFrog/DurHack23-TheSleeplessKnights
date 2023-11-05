@@ -5,16 +5,21 @@
     <h2 class="title is-2">Silly Song</h2>
     <div class="box" >
         {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <div class="notification is-danger">
-            {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="notification is-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endwith %}
         <div class="column is-8 is-offset-2">
             <img src="{{ path }}" alt="{{ title }}" width="300">
+        </div>
+        <div>
+            <audio controls style="height: 50px !important; margin: 10px;">
+                <source src="{{ url_for('backend.serve_audio', filename='speech1.mp3') }}" type="audio/mpeg">
+            </audio>
         </div>
         <h3 class="title is-3" style="color: black;">{{ title }}</h3>
         <pre style="overflow-x: hidden; text-wrap: wrap">{{ lyrics }}</pre>
