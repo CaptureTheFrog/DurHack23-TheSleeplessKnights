@@ -11,3 +11,11 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+blockquote{
+    font-family: monospace;
+    margin-left: 40px;
+    padding: 10px 20px;
+    font-size: 13px;
+    background-color: rgba(0,0,0,0.2);
+}

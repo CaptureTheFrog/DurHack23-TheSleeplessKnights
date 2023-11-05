@@ -45,7 +45,10 @@ def contact():
 
 @backend_blueprint.route('/readme')
 def readme():
-    return render_template('navbar/readme.html')
+    f = open('README.md')
+    md = f.read()
+    f.close()
+    return render_template('navbar/readme.html',readme=md)
 
 
 
