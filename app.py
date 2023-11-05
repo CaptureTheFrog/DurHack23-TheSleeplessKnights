@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import os
 from dotenv import load_dotenv
 import socket
+import mistune
 
 load_dotenv()
 
@@ -11,6 +12,10 @@ app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 from application.views import backend_blueprint
 
 app.register_blueprint(backend_blueprint)
+
+@app.template_filter()
+def render_markdown(md):
+    return mistune.html(md)
 
 
 @app.errorhandler(400)
