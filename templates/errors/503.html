@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 class="title is-2">503: Service Unavailable</h2>
-<p>The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is
-    overloaded. Note that together with this response, a user-friendly page explaining the problem should be sent. This
-    response should be used for temporary conditions and the Retry-After HTTP header should, if possible, contain the
-    estimated time before the recovery of the service. The webmaster must also take care about the caching-related
-    headers that are sent along with this response, as these temporary condition responses should usually not be
-    cached.</p>
-<p>Click <em><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503" target="_blank">here</a></em> to
-    read more.</p>
+    <h2 class="title is-2">503: Service Unavailable</h2>
+    <p>The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is
+        overloaded. Please try again later.</p>
+    <br>
+    <p><em><a href="/" target="_self">Click here to return to the home page.</a></em></p>
 {% endblock %}
