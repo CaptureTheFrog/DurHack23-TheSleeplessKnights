@@ -4,7 +4,7 @@ import requests
 from keys import openaikey
 
 
-def gen_image(prompt):
+def gen_image(prompt, song_title):
     openai.api_key = openaikey
 
     generated_data = openai.Image.create(
@@ -16,7 +16,7 @@ def gen_image(prompt):
 
     print(generated_data["data"][0]["url"])
 
-    filename = "static/images/" + prompt[:16] + ".jpg"
+    filename = "static/images/" + song_title + ".jpg"
 
     generated_image_data = requests.get(generated_data["data"][0]["url"]).content
     with open(filename, 'wb') as handler:
@@ -24,4 +24,7 @@ def gen_image(prompt):
 
 
 def art_for_song(song_title):
-    gen_image(f"Album Art for a song titled '{song_title}'")
+    gen_image(f"Design an imaginative album cover that captures the essence of the song '{song_title}' by using "
+              f"vibrant colors, surreal elements, and a blend of futuristic and organic textures. Consider "
+              f"incorporating elements of nature, technology, and music into the artwork to evoke a sense of wonder "
+              f"and creativity, reflecting the song's dynamic and evocative melody.'", song_title)

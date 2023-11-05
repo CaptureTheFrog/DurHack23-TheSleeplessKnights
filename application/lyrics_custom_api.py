@@ -1,37 +1,13 @@
-from typing import Optional
-
 import requests
-import urllib.parse
-import xml.etree.ElementTree as ET
+import re
 
 
-def get_lyrics(artist: str, song: str) -> Optional[str]:
-    r = requests.get(
-        f"http://api.chartlyrics.com/apiv1.asmx/SearchLyric?artist={urllib.parse.quote_plus(artist)}&song={urllib.parse.quote_plus(song)}")
-    if not r.ok:
-        return None
-    root = ET.fromstring(r.text)
+class Scraper:
+    def __init__(self, song_name: str, artist: str) -> None:
+        link = f"https://www.songlyrics.com/{self.replace_spaces(artist.lower())}/{self.replace_spaces(song_name.lower())}-lyrics/"
+        self.webpage = requests.get(link)
+        self.data = re.findall(r"^([a-zA-Z \.\,\!\?\;\:\'\"\(\)\[\]\{\}\-]*?)<br \/>", self.webpage.text, re.MULTILINE)
+        self.lyrics = "\n".join(self.data)
 
-    # Iterate through each "SearchLyricResult" element
-    for search_lyric_result in root:
-        lyric_id = None
-        lyric_checksum = None
-        for x in search_lyric_result:
-            if x.tag.endswith('LyricId'):
-                lyric_id = x.text
-            elif x.tag.endswith('LyricChecksum'):
-                lyric_checksum = x.text
-        if lyric_id is None or lyric_checksum is None:
-            continue
-        else:
-            r = requests.get(
-                f"http://api.chartlyrics.com/apiv1.asmx/GetLyric?lyricId={urllib.parse.quote_plus(lyric_id)}&lyricChecksum={urllib.parse.quote_plus(lyric_checksum)}")
-            root2 = ET.fromstring(r.text)
-            for n in root2:
-                if n.tag.endswith("}Lyric"):
-                    return n.text
-    return None
-
-
-if __name__ == '__main__':
-    print(get_lyrics('Gorillaz', 'Feel Good Inc.'))
+    def replace_spaces(self, string):
+        return string.replace(" ", "-")

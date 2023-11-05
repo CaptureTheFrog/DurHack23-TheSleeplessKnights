@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, flash
 from application.forms import PostForm
-from application.lyrics_custom_api import get_lyrics
+from application.lyrics_custom_api import Scraper
+from utils.LLM import LLM
+from utils.image_gen import art_for_song
 
 backend_blueprint = Blueprint('backend', __name__, template_folder='templates')
 
@@ -9,11 +11,17 @@ backend_blueprint = Blueprint('backend', __name__, template_folder='templates')
 def main():
     form = PostForm()
     if form.validate_on_submit():
-        lyrics = get_lyrics(form.artist.data, form.title.data)
-        if not lyrics:
+        scraper = Scraper(form.title.data, form.artist.data)
+        lyrics = scraper.lyrics
+        if lyrics == "":
             flash('Lyrics not found.')
             return render_template('main/index.html', form=form)
-        return render_template('main/view_lyrics.html', title=form.title.data, lyrics=lyrics)
+        else:
+            new_lyrics = LLM(lyrics).generate()
+            art_for_song(form.title.data)
+
+        path = "../../static/images/" + form.title.data + ".jpg"
+        return render_template('main/view_lyrics.html', title=form.title.data, path=path, lyrics=new_lyrics)
 
     return render_template('main/index.html', form=form)
 
